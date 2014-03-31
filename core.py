@@ -7,14 +7,12 @@ def generateFiguredBass(piece):
     key = piece.analyze('key')
     print key
     map = Mapping(str(key)).getMapper()
-    print map
     numMeasures = len(piece.getElementsByClass('Part')[0].getElementsByClass('Measure'))
     figuredBass = []
     # goes through every measure
     for measure in range(1, numMeasures + 1):
         print measure
         getParts = piece.parts[0:len(piece.parts)].measures(measure, measure)
-        getParts.show('text')
         for item in getParts:
             if type(item) is stream.Measure:
                 st = item.notes
@@ -31,13 +29,17 @@ def generateFiguredBass(piece):
                             elemName = elem.name
                             found = 1
                             start = num
-                            chord.append(elemName)
+                            chord.append(map.get(elemName))
                             if num == len(st) - 1 and len(chord) != 0:
+                                chord = list(set(chord))
+                                chord.sort()
                                 print(chord)
                                 analyze(chord)
                         elif found == 1:
                             found = 0
-                            print(chord)
+                            chord = list(set(chord))
+                            chord.sort()
+                            print chord
                             analyze(chord)
                             break
         

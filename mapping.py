@@ -42,7 +42,6 @@ class Mapping:
         self.key = key
         self.keySig = keyToSignature[key][0]
         self.offset = keyToSignature[key][1]
-        print self.offset
         if self.keySig == 0 or self.keySig[1] == '#':
             self.mapper['C'] = self.calculateIndex(0)
             self.mapper['B#'] = self.calculateIndex(0)
