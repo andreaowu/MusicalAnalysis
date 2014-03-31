@@ -6,7 +6,7 @@ from mapping import *
 def generateFiguredBass(piece):
     key = piece.analyze('key')
     print key
-    map = Mapping(str(key).split(' ', 1)[0]).getMapper()
+    map = Mapping(str(key)).getMapper()
     print map
     numMeasures = len(piece.getElementsByClass('Part')[0].getElementsByClass('Measure'))
     figuredBass = []
@@ -45,5 +45,5 @@ def analyze(chord):
     
 	print "hello world"	
 
-generateFiguredBass(corpus.parse('bach/bwv1.6'))
+generateFiguredBass(corpus.parse('bach/bwv7.7'))
 

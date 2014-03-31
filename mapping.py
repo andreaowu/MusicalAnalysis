@@ -1,52 +1,83 @@
 #!/usr/bin/python
 
 keyToSignature = {}
-keyToSignature['a minor'] = '0b'
-keyToSignature['a# minor'] = '0b'
-keyToSignature['ab minor'] = 'b'
-keyToSignature['b'] = 'b'
-keyToSignature['bb minor'] = 'b'
-keyToSignature[''] = 'b'
-keyToSignature['minor'] = 'b'
-keyToSignature[''] = 'b'
-keyToSignature['minor'] = 'b'
-keyToSignature[''] = 'b'
-keyToSignature['minor'] = 'b'
-keyToSignature[''] = 'b'
-keyToSignature['minor'] = 'b'
-keyToSignature[''] = 'b'
-keyToSignature['C major'] = '0'
-keyToSignature['G major'] = '1#'
-keyToSignature['D major'] = '2#'
-keyToSignature['A major'] = '3#'
-keyToSignature['E major'] = '4#'
-keyToSignature['B major'] = '5#'
-keyToSignature['Cb major'] = '7b'
-keyToSignature['F# major'] = '6#'
-keyToSignature['Gb major'] = '6b'
-keyToSignature['C# major'] = '7#'
-keyToSignature['Db major'] = '5b'
 
+# Sharp keys going around circle of fifths
+keyToSignature['C major'] = ['0', 0]
+keyToSignature['a minor'] = ['0', 9]
+keyToSignature['G major'] = ['1#', 7]
+keyToSignature['e minor'] = ['1#', 4]
+keyToSignature['D major'] = ['2#', 2]
+keyToSignature['b minor'] = ['2#', 11]
+keyToSignature['A major'] = ['3#', 9]
+keyToSignature['f# minor'] = ['3#', 6] 
+keyToSignature['E major'] = ['4#', 4]
+keyToSignature['g# minor'] = ['4#', 8]
+keyToSignature['B major'] = ['5#', 11]
+keyToSignature['g# minor'] = ['5#', 8]
+keyToSignature['F# major'] = ['6#', 6] 
+keyToSignature['d# minor'] = ['6#', 3] 
+keyToSignature['C# major'] = ['7#', 1] 
+keyToSignature['a# minor'] = ['7#', 10] 
+
+# Flat keys going around circle of fourths
+keyToSignature['Cb major'] = ['7b', 11]
+keyToSignature['ab minor'] = ['7b', 8]
+keyToSignature['Gb major'] = ['6b', 6]
+keyToSignature['eb minor'] = ['6b', 3]
+keyToSignature['Db major'] = ['5b', 1]
+keyToSignature['bb minor'] = ['5b', 10]
+keyToSignature['Ab major'] = ['4b', 8]
+keyToSignature['f minor'] = ['4b', 5]
+keyToSignature['Eb major'] = ['3b', 3]
+keyToSignature['c minor'] = ['3b', 0]
+keyToSignature['Bb major'] = ['2b', 10]
+keyToSignature['g minor'] = ['2b', 7]
+keyToSignature['F major'] = ['1b', 5]
+keyToSignature['d minor'] = ['1b', 2]
 
 class Mapping:
-    def __init__(self, note):
+    def __init__(self, key):
         self.mapper = {}
-        if len(note) > 1 and note[1] == '#':
-            print "sharp"
+        self.key = key
+        self.keySig = keyToSignature[key][0]
+        self.offset = keyToSignature[key][1]
+        print self.offset
+        if self.keySig == 0 or self.keySig[1] == '#':
+            self.mapper['C'] = self.calculateIndex(0)
+            self.mapper['B#'] = self.calculateIndex(0)
+            self.mapper['C#'] = self.calculateIndex(1)
+            self.mapper['D'] = self.calculateIndex(2)
+            self.mapper['D#'] = self.calculateIndex(3)
+            self.mapper['E'] = self.calculateIndex(4)
+            self.mapper['F'] = self.calculateIndex(5)
+            self.mapper['F#'] = self.calculateIndex(6)
+            self.mapper['G'] = self.calculateIndex(7)
+            self.mapper['G#'] = self.calculateIndex(8)
+            self.mapper['A'] = self.calculateIndex(9)
+            self.mapper['A#'] = self.calculateIndex(10)
+            self.mapper['B'] = self.calculateIndex(11)
         else:
-            self.mapper['c'] = 1
-            self.mapper['c#'] = 2
-            self.mapper['d'] = 3
-            self.mapper['d#'] = 4
-            self.mapper['e'] = 5
-            self.mapper['f'] = 6
-            self.mapper['f#'] = 7
-            self.mapper['g'] = 8
-            self.mapper['g#'] = 9
-            self.mapper['a'] = 10
-            self.mapper['a#'] = 11
-            self.mapper['b'] = 12
-            print note
+            self.mapper['C'] = self.calculateIndex(0)
+            self.mapper['Db'] = self.calculateIndex(1)
+            self.mapper['D'] = self.calculateIndex(2)
+            self.mapper['Eb'] = self.calculateIndex(3)
+            self.mapper['E'] = self.calculateIndex(4)
+            self.mapper['Fb'] = self.calculateIndex(4)
+            self.mapper['F'] = self.calculateIndex(5)
+            self.mapper['Gb'] = self.calculateIndex(6)
+            self.mapper['G'] = self.calculateIndex(7)
+            self.mapper['Ab'] = self.calculateIndex(8)
+            self.mapper['A'] = self.calculateIndex(9)
+            self.mapper['Bb'] = self.calculateIndex(10)
+            self.mapper['B'] = self.calculateIndex(11)
+            self.mapper['Cb'] = self.calculateIndex(11)
+
+    def calculateIndex(self, orig):
+        if orig - self.offset >= 0:
+            return orig - self.offset
+        else:
+            return 12 + (orig - self.offset)
 
     def getMapper(self):
         return self.mapper
