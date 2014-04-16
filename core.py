@@ -67,23 +67,41 @@ def generateFiguredBass(piece):
                             break
         
 def analyze(chord):
-    first = chord[3]
+    first = chord[len(chord) - 1]
     chord = list(set(chord))
     chord.sort()
     pos = chord.index(first)
-    print pos
+    romanNumeral = ""
     if len(chord) == 3:
         if chord[1] - chord[0] == 3:
-            if chord[2] - chord[1] == 3:
-                print chordToRoman[str(pos) + "dim"]
-            else:
-                print chordToRoman[str(pos) + "minor"]
+            if chord[2] - chord[1] == 3 or chord[2] - chord[1] == 6:
+                romanNumeral = chordToRoman[str(pos) + "dim"]
+            elif chord[2] - chord[1] == 4:
+                romanNumeral = chordToRoman[str(pos) + "minor"]
+            elif chord[2] - chord[1] == 5:
+                romanNumeral = chordToRoman[str(pos) + "major"]
         elif chord[1] - chord[0] == 4:
             if chord[2] - chord[1] == 3:
-                print chordToRoman[str(pos) + "major"]
-            else:
-                print chordToRoman[str(pos) + "aug"]
-                
+                romanNumeral = chordToRoman[str(pos) + "major"]
+            elif chord[2] - chord[1] == 4:
+                romanNumeral = chordToRoman[str(pos) + "aug"]
+            elif chord[2] - chord[1] == 5:
+                romanNumeral = chordToRoman[str(pos) + "minor"]
+        elif chord[1] - chord[0] == 5:
+            if chord[2] - chord[1] == 4:
+                romanNumeral = chordToRoman[str(pos) + "major"]
+            elif chord[2] - chord[1] == 3:
+                romanNumeral = chordToRoman[str(pos) + "minor"]
+        elif chord[1] - chord[0] == 6:
+            if chord[2] - chord[1] == 4:
+                romanNumeral = chordToRoman[str(pos) + "aug"]
+            elif chord[2] - chord[1] == 3:
+                romanNumeral = chordToRoman[str(pos) + "dim"]
+    if pos == 1:
+        romanNumeral += " 6"
+    elif pos == 2:
+        romanNumeral += " 6 4"
+    print romanNumeral
 
 
 generateFiguredBass(corpus.parse('bach/bwv7.7'))
