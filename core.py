@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import sys
 from music21 import *
 from music21 import corpus
 from mapping import *
@@ -45,7 +46,7 @@ def generateFiguredBass(piece):
         for item in getParts:
             if type(item) is stream.Measure:
                 st = item.notes
-                start = -1 # start here next loo
+                start = -1 # start here next loop
                 # goes through every count 
                 for count in range(int(st.lowestOffset), int(st.highestOffset + 1)):
                     found = 0 # stop loop if already came to end of true elems
@@ -147,10 +148,10 @@ def analyze(chord, f):
             romanNumeral += " 4 3"
         elif pos == 4:
             romanNumeral += " 2"
-    f.write(chord + ": " + romanNumeral + "\n")
+    f.write(str(chord) + ": " + romanNumeral + "\n")
 
 def chordDiff(chord, pos1, pos2):
     return chord[pos2] - chord[pos1]
 
-generateFiguredBass(corpus.parse('bach/bwv7.7'))
+generateFiguredBass(corpus.parse(sys.argv[1]))
 

@@ -36,36 +36,6 @@ keyToSignature['g minor'] = ['2b', 7]
 keyToSignature['F major'] = ['1b', 5]
 keyToSignature['d minor'] = ['1b', 2]
 
-chordToRoman = {}
-chordToRoman['0major'] = "I"
-chordToRoman['2major'] = "II"
-chordToRoman['4major'] = "III"
-chordToRoman['5major'] = "IV"
-chordToRoman['7major'] = "V"
-chordToRoman['9major'] = "VI"
-chordToRoman['11major'] = "VII"
-chordToRoman['0minor'] = "i"
-chordToRoman['2minor'] = "ii"
-chordToRoman['3minor'] = "iii"
-chordToRoman['5minor'] = "iv"
-chordToRoman['7minor'] = "v"
-chordToRoman['9minor'] = "vi"
-chordToRoman['11minor'] = "vii"
-chordToRoman['0aug'] = "I+"
-chordToRoman['2aug'] = "II+"
-chordToRoman['4aug'] = "III+"
-chordToRoman['5aug'] = "IV+"
-chordToRoman['7aug'] = "V+"
-chordToRoman['9aug'] = "VI+"
-chordToRoman['116aug'] = "VII+"
-chordToRoman['0dim'] = "io"
-chordToRoman['2dim'] = "iio"
-chordToRoman['4dim'] = "iiio"
-chordToRoman['5dim'] = "ivo"
-chordToRoman['7dim'] = "vo"
-chordToRoman['9dim'] = "vio"
-chordToRoman['11dim'] = "viio"
-
 class Mapping:
     def __init__(self, key):
         self.mapper = {}
@@ -110,6 +80,3 @@ class Mapping:
 
     def getMapper(self):
         return self.mapper
-    
-    def getRoman(self):
-        return chordToRoman
