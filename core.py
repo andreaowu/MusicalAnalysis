@@ -148,7 +148,7 @@ def analyze(chord, f):
             romanNumeral += " 4 3"
         elif pos == 4:
             romanNumeral += " 2"
-    f.write(str(chord) + ": " + romanNumeral + "\n")
+    f.write(romanNumeral + "\n")
 
 def chordDiff(chord, pos1, pos2):
     return chord[pos2] - chord[pos1]
