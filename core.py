@@ -99,10 +99,13 @@ def analyze(chord, f):
                 romanNumeral = chordToRoman[str(pos) + "aug"]
             elif diffTwo == 3:
                 romanNumeral = chordToRoman[str(pos) + "dim"]
-        if pos == 1:
-            romanNumeral += " 6"
-        elif pos == 2:
-            romanNumeral += " 6 4"
+        if len(romanNumeral) == 0:
+			romanNumeral = "Not determined"
+        else:
+            if pos == 1:
+        	    romanNumeral += " 6"
+            elif pos == 2:
+        	    romanNumeral += " 6 4"
 
     if len(chord) == 4:
         diffOne = chordDiff(chord, 0, 1)
@@ -140,18 +143,25 @@ def analyze(chord, f):
             elif diffTwo == 2:
                 if diffThree == 4:
                     romanNumeral = "Dom V"
-        if pos == 1:
-            romanNumeral += "7"
-        elif pos == 2:
-            romanNumeral += " 6 5"
-        elif pos == 3:
-            romanNumeral += " 4 3"
-        elif pos == 4:
-            romanNumeral += " 2"
+        if len(romanNumeral) == 0:
+            romanNumeral = "Not determined"
+        else:
+            if pos == 1:
+        	    romanNumeral += "7"
+            elif pos == 2:
+                romanNumeral += " 6 5"
+            elif pos == 3:
+        	    romanNumeral += " 4 3"
+            elif pos == 4:
+        	    romanNumeral += " 2"
     f.write(romanNumeral + "\n")
 
 def chordDiff(chord, pos1, pos2):
     return chord[pos2] - chord[pos1]
 
-generateFiguredBass(corpus.parse(sys.argv[1]))
+if len(sys.argv) < 2:
+    print "Give me a piece of music to analyze! Example: bach/bwv7.7"
+    print "Usage: \"python core.py [piece to analyze]\""	
+else:
+    generateFiguredBass(corpus.parse(sys.argv[1]))
 
